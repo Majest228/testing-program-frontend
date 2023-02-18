@@ -1,0 +1,174 @@
+.TestForm {
+  &__container {
+    margin: 0 auto;
+    max-width: 1200px;
+  }
+  &__content {
+    margin-top: 20px;
+    &__top {
+      margin-bottom: 20px;
+      background-color: rgb(209, 209, 209);
+      display: flex;
+      padding: 20px;
+      justify-content: space-between;
+      align-items: center;
+      border-radius: 12px;
+      &__left {
+        &__content {
+          display: flex;
+          &__img {
+            img {
+              object-fit: cover;
+              border-radius: 50%;
+            }
+          }
+          &__text {
+            margin-top: 30px;
+            margin-left: 20px;
+            &__name {
+              color: rgb(2, 92, 92);
+              font-size: 26px;
+              margin-bottom: 20px;
+            }
+          }
+        }
+      }
+      &__right {
+        text-align: center;
+        &__time {
+          &__value {
+            color: rgb(2, 92, 92);
+            font-size: 26px;
+          }
+        }
+      }
+    }
+    &__middle {
+      background-color: rgb(209, 209, 209);
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      &__content {
+        &__quest {
+          &__top {
+            &__arrow {
+              display: flex;
+              width: 200px;
+              justify-content: space-between;
+              &__left {
+                cursor: pointer;
+                transform: rotate(180deg);
+                border: 1px solid blue;
+                padding: 3px;
+              }
+              &__count {
+                margin-top: 6px;
+              }
+              &__right {
+                border: 1px solid blue;
+                padding: 3px;
+                cursor: pointer;
+              }
+            }
+            &__title {
+              margin-top: 15px;
+              color: rgb(2, 92, 92);
+              font-size: 26px;
+            }
+          }
+        }
+        &__questions {
+          &__radios {
+            margin-top: 40px;
+            &__button {
+              margin-bottom: 25px;
+              display: flex;
+              align-items: center;
+              label {
+                display: flex;
+                align-items: center;
+                position: relative;
+                cursor: pointer;
+                input {
+                  margin: 0;
+                  padding: 0;
+                  display: none;
+                  position: relative;
+                  &:checked {
+                    + {
+                      .TestForm__content__middle__content__questions__radios__button__input {
+                        &::before {
+                          opacity: 1;
+                        }
+                      }
+                    }
+                  }
+                }
+                p {
+                  margin-left: 15px;
+                  font-weight: 400;
+                  font-size: 20px;
+                  line-height: 150%;
+                  color: #171717;
+                  a {
+                    color: #4db82d;
+                  }
+                }
+              }
+              &__input {
+                width: 24px;
+                height: 24px;
+                border-radius: 50%;
+                border: 1px solid #026bcb;
+                position: relative;
+                &::before {
+                  content: "";
+                  position: absolute;
+                  top: 50%;
+                  left: 50%;
+                  transform: translate(-50%, -50%);
+                  width: 10px;
+                  height: 10px;
+                  background-color: #026bcb;
+                  border-radius: 50%;
+                  opacity: 0;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    &__bottom {
+      display: flex;
+      justify-content: space-between;
+      background-color: rgb(209, 209, 209);
+      padding: 20px;
+      border-radius: 12px;
+      align-items: center;
+      &__left {
+        display: flex;
+        max-width: 70%;
+        flex-wrap: wrap;
+        &__item {
+          padding: 10px 18px;
+          border: 1px solid #4db82d;
+          margin-right: 10px;
+          cursor: pointer;
+          border-radius: 10px;
+          background-color: white;
+        }
+      }
+      &__right {
+        &__finish {
+          border: none;
+          cursor: pointer;
+          color: white;
+          background-color: #300bd3;
+          padding: 7px;
+          border-radius: 12px;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,33 @@
+.header {
+    background: #000000;
+
+    &__container {
+        max-width: 1280px;
+        margin: 0 auto;
+    }
+
+    &__content {
+        padding: 15px 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        &__left {
+            a {
+                font-size: 24px;
+                font-weight: normal;
+                color: #ffffff;
+
+            }
+        }
+
+        &__right {
+            button {
+                background: none;
+                border: none;
+                color: #ffffff;
+                font-size: 24px;
+            }
+        }
+    }
+}
