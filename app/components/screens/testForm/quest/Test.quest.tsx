@@ -1,8 +1,10 @@
 import React from "react";
 import styles from "../TestForm.module.scss";
 import Arrow from "@/app/components/ui/svg/arrow";
+import { useAppSelector } from "@/app/store/store";
 
-const Quest = ({ testing, id }: any) => {
+const Quest = ({ testing, id, isLoading, prev, next }: any) => {
+  const { currentQuestion } = useAppSelector(state => state.test)
   return (
     <div className={styles.TestForm__content__middle}>
       <div className={styles.TestForm__content__middle__content}>
@@ -15,13 +17,14 @@ const Quest = ({ testing, id }: any) => {
                 styles.TestForm__content__middle__content__quest__top__arrow
               }
             >
-              <div
+              <button
                 className={
                   styles.TestForm__content__middle__content__quest__top__arrow__left
                 }
+                onClick={() => prev()}
               >
                 <Arrow />
-              </div>
+              </button>
               <div
                 className={
                   styles.TestForm__content__middle__content__quest__top__arrow__count
@@ -29,20 +32,21 @@ const Quest = ({ testing, id }: any) => {
               >
                 <p>Вопрос номер №{id}</p>
               </div>
-              <div
+              <button
                 className={
                   styles.TestForm__content__middle__content__quest__top__arrow__right
                 }
+                onClick={() => next()}
               >
                 <Arrow />
-              </div>
+              </button>
             </div>
             <div
               className={
                 styles.TestForm__content__middle__content__quest__top__title
               }
             >
-              <p>{testing[id][0]}</p>
+              <p>{isLoading ? "" : testing[currentQuestion][0]}</p>
             </div>
           </div>
         </div>
@@ -52,7 +56,7 @@ const Quest = ({ testing, id }: any) => {
               styles.TestForm__content__middle__content__questions__radios
             }
           >
-            {testing[id].map((test, i) =>
+            {isLoading ? "" : testing[currentQuestion].map((test, i) =>
               i != 0 ? (
                 <div
                   className={

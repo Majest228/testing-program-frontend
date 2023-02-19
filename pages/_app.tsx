@@ -2,8 +2,9 @@ import Layout from "../app/components/layout/Layout";
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { Provider } from "react-redux";
-import { store } from "@/app/store/store";
+import { store, persistor } from "@/app/store/store";
 import AuthProvider from "@/app/providers/AuthProvider";
+import { PersistGate } from 'redux-persist/integration/react'
 import { QueryClient, QueryClientProvider } from "react-query";
 
 
@@ -19,11 +20,13 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <Provider store={store}>
-        <AuthProvider Component={Component}>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        </AuthProvider >
+        <PersistGate persistor={persistor} loading={null}>
+          <AuthProvider Component={Component}>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </AuthProvider >
+        </PersistGate>
       </Provider>
     </QueryClientProvider>
 
