@@ -1,0 +1,10 @@
+.home {
+    &__container {
+        max-width: 1280px;
+        margin: 0 auto;
+    }
+
+    &__content {
+        display: flex;
+    }
+}
