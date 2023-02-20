@@ -3,18 +3,23 @@ import { configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook } from "react-redux/es/types";
 import { useSelector } from "react-redux";
 import {
-  FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER,
-  persistReducer, persistStore
-} from 'redux-persist'
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+  persistReducer,
+  persistStore,
+} from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
 const persistConfig = {
-  key: 'root',
-  storage
-}
+  key: "root",
+  storage,
+};
 
-const persistedReducer = persistReducer(persistConfig, rootReducer)
-
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
   reducer: persistedReducer,
@@ -26,7 +31,7 @@ export const store = configureStore({
     }),
 });
 
-export const persistor = persistStore(store)
+export const persistor = persistStore(store);
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDipsatch = typeof store.dispatch;

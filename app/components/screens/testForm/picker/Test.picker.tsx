@@ -4,24 +4,25 @@ import { setCurrentQuestion } from "@/app/store/test/test.slice";
 import React from "react";
 import styles from "../TestForm.module.scss";
 
-const Picker = ({ testing }: any) => {
-  const { currentQuestion } = useAppSelector(state => state.test)
-  const dispatch = useAppDispatch()
-  Object.keys(testing).forEach(item => console.log(item))
-
-  console.log(testing)
+const Picker = ({ isLoading }) => {
+  const { currentQuestion } = useAppSelector((state) => state.test);
+  const { testing } = useAppSelector((state) => state.test);
+  const dispatch = useAppDispatch();
 
   return (
     <div className={styles.TestForm__content}>
       <div className={styles.TestForm__content__bottom}>
         <div className={styles.TestForm__content__bottom__left}>
-          {
-            Object.keys(testing).map(test => (
-              <button className={styles.TestForm__content__bottom__left__item} onClick={() => dispatch(setCurrentQuestion(test))}>
-                <p>{test}</p>
-              </button>
-            ))
-          }
+          {!isLoading
+            ? Object.keys(testing).map((test) => (
+                <button
+                  className={styles.TestForm__content__bottom__left__item}
+                  onClick={() => dispatch(setCurrentQuestion(test))}
+                >
+                  <p>{test}</p>
+                </button>
+              ))
+            : ""}
           {/* <div className={styles.TestForm__content__bottom__left__item}>
             <p>1</p>
           </div>
