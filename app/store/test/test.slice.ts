@@ -5,7 +5,8 @@ import cookie from "js-cookie";
 const initialState = {
   currentQuestion: 1 || localStorage.getItem("question"),
   testing: {},
-  selected: {} || localStorage.getItem("selected"),
+  selected: 1 || localStorage.getItem("selected"),
+  questLength: 0,
 };
 export const testSlice = createSlice({
   name: "test",
@@ -21,13 +22,14 @@ export const testSlice = createSlice({
       localStorage.setItem("testing", JSON.stringify(state.testing));
     },
     setSelectedId: (state, action) => {
-      state.selected[action.payload.id][1] = action.payload.select;
+      state.selected[action.payload.id] = action.payload.select;
       // cookie.set("selected", JSON.stringify(state.selected), { secure: true });
       // cookie.set("selected", JSON.stringify(state.selected));
       localStorage.setItem("selected", JSON.stringify(state.selected));
     },
     setSelected: (state, action) => {
-      state.selected = action.payload; localStorage.setItem("selected", JSON.stringify(state.selected));
+      state.selected = action.payload;
+      localStorage.setItem("selected", JSON.stringify(state.selected));
       // cookie.set("selected", JSON.stringify(state.selected), { secure: true });
       localStorage.setItem("selected", JSON.stringify(state.selected));
     },
