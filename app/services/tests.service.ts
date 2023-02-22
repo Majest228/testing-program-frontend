@@ -8,5 +8,10 @@ export const TestsService = {
 
     async getById(id: number) {
         return await apiAxios.get(`test/${id}`)
+    },
+
+    async getByTestId(id: number) {
+        return await apiAxios.get(`question/${id}`)
     }
+
 }

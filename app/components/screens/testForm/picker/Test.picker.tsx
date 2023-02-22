@@ -1,46 +1,31 @@
 import { useAppDispatch } from "@/app/hooks/hooks";
 import { useAppSelector } from "@/app/store/store";
 import { setCurrentQuestion } from "@/app/store/test/test.slice";
-import React from "react";
+import React, { useState } from "react";
 import styles from "../TestForm.module.scss";
 
-const Picker = ({ isLoading }) => {
+const Picker = ({ isLoading, onSubmit }) => {
   const { currentQuestion } = useAppSelector((state) => state.test);
-  const { testing } = useAppSelector((state) => state.test);
+  const { testing, selected } = useAppSelector((state) => state.test);
   const dispatch = useAppDispatch();
-
   return (
     <div className={styles.TestForm__content}>
       <div className={styles.TestForm__content__bottom}>
         <div className={styles.TestForm__content__bottom__left}>
           {!isLoading
             ? Object.keys(testing).map((test) => (
-                <button
-                  className={styles.TestForm__content__bottom__left__item}
-                  onClick={() => dispatch(setCurrentQuestion(test))}
-                >
-                  <p>{test}</p>
-                </button>
-              ))
+              <button
+                className={styles.TestForm__content__bottom__left__item}
+                onClick={() => dispatch(setCurrentQuestion(test))}
+              >
+                <p>{test}</p>
+              </button>
+            ))
             : ""}
-          {/* <div className={styles.TestForm__content__bottom__left__item}>
-            <p>1</p>
-          </div>
-          <div className={styles.TestForm__content__bottom__left__item}>
-            <p>2</p>
-          </div>
-          <div className={styles.TestForm__content__bottom__left__item}>
-            <p>3</p>
-          </div>
-          <div className={styles.TestForm__content__bottom__left__item}>
-            <p>4</p>
-          </div>
-          <div className={styles.TestForm__content__bottom__left__item}>
-            <p>5</p>
-          </div> */}
+
         </div>
         <div className={styles.TestForm__content__bottom__right}>
-          <button className={styles.TestForm__content__bottom__right__finish}>
+          <button className={styles.TestForm__content__bottom__right__finish} onClick={onSubmit}>
             Завершить
           </button>
         </div>

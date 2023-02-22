@@ -1,14 +1,29 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "../TestForm.module.scss";
 import Arrow from "@/app/components/ui/svg/arrow";
 import { useAppSelector } from "@/app/store/store";
 import { useAppDispatch } from "@/app/hooks/hooks";
 import { setSelectedId } from "@/app/store/test/test.slice";
+import { useQuery } from "react-query";
+import { TestsService } from "@/app/services/tests.service";
+import { useRouter } from "next/router";
 
-const Quest = ({ id, isLoading, prev, next }: any) => {
+const Quest = ({ id, prev, next }: any) => {
+  const [checked, setChecked] = useState(false)
+
   const { currentQuestion } = useAppSelector((state) => state.test);
-  const { testing } = useAppSelector((state) => state.test);
+  const { testing, selected } = useAppSelector((state) => state.test);
   const dispatch = useAppDispatch();
+
+  const router = useRouter();
+  const pathId = router.query.id;
+  const {
+    data: response,
+    error,
+    isLoading,
+  } = useQuery("test by id", () => TestsService.getByTestId(Number(pathId)));
+
+
   return (
     <div className={styles.TestForm__content__middle}>
       <div className={styles.TestForm__content__middle__content}>
@@ -53,9 +68,7 @@ const Quest = ({ id, isLoading, prev, next }: any) => {
               <p>
                 {isLoading
                   ? ""
-                  : testing[currentQuestion]
-                  ? testing[currentQuestion][0]
-                  : ""}
+                  : response?.data[currentQuestion].question}
               </p>
             </div>
           </div>
@@ -68,46 +81,44 @@ const Quest = ({ id, isLoading, prev, next }: any) => {
           >
             {isLoading
               ? ""
-              : testing[currentQuestion]?.map((test, i) =>
-                  i != 0 ? (
-                    <div
-                      key={i}
+              : response?.data.filter(item => item.questionId === currentQuestion).map((test, i) =>
+              (
+                <div
+                  key={i}
+                  className={
+                    styles.TestForm__content__middle__content__questions__radios__button
+                  }
+                >
+                  <label>
+                    <input
+                      id={String(currentQuestion)}
+                      value={test.variant}
+                      type={"radio"}
+                      name={`answer${currentQuestion}`}
+                      checked={checked || selected[currentQuestion][1] == test}
+                      onChange={(e) => {
+                        dispatch(
+                          setSelectedId({
+                            id: e.target.id,
+                            select: e.target.value,
+                          })
+                        );
+                      }}
+                    />
+                    <span
                       className={
-                        styles.TestForm__content__middle__content__questions__radios__button
+                        styles.TestForm__content__middle__content__questions__radios__button__input
                       }
-                    >
-                      <label>
-                        <input
-                          id={String(currentQuestion)}
-                          value={test}
-                          type={"radio"}
-                          name="answer"
-                          onChange={(e) => {
-                            dispatch(
-                              setSelectedId({
-                                id: e.target.id,
-                                select: e.target.value,
-                              })
-                            );
-                          }}
-                        />
-                        <span
-                          className={
-                            styles.TestForm__content__middle__content__questions__radios__button__input
-                          }
-                        ></span>
-                        <p>{test}</p>
-                      </label>
-                    </div>
-                  ) : (
-                    ""
-                  )
-                )}
+                    ></span>
+                    <p>{test.variant}</p>
+                  </label>
+                </div>
+              )
+              )}
           </div>
         </div>
       </div>
     </div>
   );
 };
-
 export default Quest;
