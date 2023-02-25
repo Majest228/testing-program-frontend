@@ -8,7 +8,7 @@ const DynamicCheckRole = dynamic(() => import("./CheckRole"), {
 })
 
 const AuthProvider: FC<PropsWithChildren<TypeComponentAuthFields>> = ({
-    Component: { isOnlyUser, IsNotUser },
+    Component: { isOnlyUser, IsNotUser, isOnlyAdmin },
     children,
 }) => {
     const { user } = useAuth()
@@ -23,10 +23,10 @@ const AuthProvider: FC<PropsWithChildren<TypeComponentAuthFields>> = ({
     //   const refreshToken = cookies.get("refreshToken")
     // }, [pathname]) // eslint-disable-line react-hooks/exhaustive-deps
 
-    return !isOnlyUser && IsNotUser ? (
+    return !isOnlyUser && !isOnlyAdmin && IsNotUser ? (
         <>{children}</>
     ) : (
-        <DynamicCheckRole Component={{ isOnlyUser, IsNotUser }}>{children}</DynamicCheckRole>
+        <DynamicCheckRole Component={{ isOnlyUser, isOnlyAdmin, IsNotUser }}>{children}</DynamicCheckRole>
     )
 }
 

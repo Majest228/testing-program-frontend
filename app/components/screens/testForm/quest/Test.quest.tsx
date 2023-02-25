@@ -11,7 +11,6 @@ import { json } from "stream/consumers";
 import {
   setSelected,
   setCurrentQuestion,
-  setQuestionsLength,
 } from "@/app/store/test/test.slice";
 
 const Quest = ({ id, prev, next }: any) => {
@@ -27,8 +26,11 @@ const Quest = ({ id, prev, next }: any) => {
     data: response,
     error,
     isLoading,
-  } = useQuery("test by id", () => TestsService.getByTestId(Number(pathId)));
-
+  } = useQuery("test without right", () => TestsService.getWithoutIsRight(Number(pathId)));
+  const {
+    data: title,
+    isLoadingTitle,
+  } = useQuery("title by id", () => TestsService.getTitle(Number(pathId)));
   if (!isLoading && !localStorage.getItem("selected")) {
     let selecting = {};
     const questionsLength =
@@ -36,10 +38,23 @@ const Quest = ({ id, prev, next }: any) => {
     if (!isLoading)
       for (let i = 1; i <= questionsLength; i++) selecting[i] = "";
     dispatch(setSelected(selecting));
-    dispatch(setCurrentQuestion(1));
     localStorage.setItem("questionsLength", questionsLength.toString());
     localStorage.setItem("selected", JSON.stringify(selecting));
   }
+  // console.log("without", isLoading ? [] : response?.data)
+  // console.log("result", isLoading ? [] : response?.data[currentQuestion].question)
+
+  // for (let i = 1; i < response?.data.length; i++) {
+  //   response?.data[i].questionId == id
+  //   selecting = [{
+  //     question: response?.data[i].question,
+  //     answer: "",
+  //     questionId: response?.data[i].questionId
+  //   }]
+  //   id++
+  // }
+
+  // console.log("title", isLoadingTitle ? [] : title?.data)
   return (
     <div className={styles.TestForm__content__middle}>
       <div className={styles.TestForm__content__middle__content}>
@@ -81,7 +96,7 @@ const Quest = ({ id, prev, next }: any) => {
                 styles.TestForm__content__middle__content__quest__top__title
               }
             >
-              <p>{isLoading ? "" : response?.data[currentQuestion].question}</p>
+              <p>{isLoading ? "" : title?.data[currentQuestion - 1].question}</p>
             </div>
           </div>
         </div>
@@ -94,41 +109,41 @@ const Quest = ({ id, prev, next }: any) => {
             {isLoading
               ? ""
               : response?.data
-                  .filter((item) => item.questionId === currentQuestion)
-                  .map((test, i) => (
-                    <div
-                      key={i}
-                      className={
-                        styles.TestForm__content__middle__content__questions__radios__button
-                      }
-                    >
-                      <label>
-                        <input
-                          id={String(currentQuestion)}
-                          value={test.variant}
-                          type={"radio"}
-                          name={`answer${currentQuestion}`}
-                          checked={
-                            checked || selected[currentQuestion] == test.variant
-                          }
-                          onChange={(e) => {
-                            dispatch(
-                              setSelectedId({
-                                id: e.target.id,
-                                select: e.target.value,
-                              })
-                            );
-                          }}
-                        />
-                        <span
-                          className={
-                            styles.TestForm__content__middle__content__questions__radios__button__input
-                          }
-                        ></span>
-                        <p>{test.variant}</p>
-                      </label>
-                    </div>
-                  ))}
+                .filter((item) => item.questionId === currentQuestion)
+                .map((test, i) => (
+                  <div
+                    key={i}
+                    className={
+                      styles.TestForm__content__middle__content__questions__radios__button
+                    }
+                  >
+                    <label>
+                      <input
+                        id={String(test.questionId)}
+                        value={test.variant}
+                        type={"radio"}
+                        name={`answer${currentQuestion}`}
+                        checked={
+                          checked || selected[currentQuestion] == test.variant
+                        }
+                        onChange={(e) => {
+                          dispatch(
+                            setSelectedId({
+                              id: e.target.id,
+                              select: e.target.value,
+                            })
+                          );
+                        }}
+                      />
+                      <span
+                        className={
+                          styles.TestForm__content__middle__content__questions__radios__button__input
+                        }
+                      ></span>
+                      <p>{test.variant}</p>
+                    </label>
+                  </div>
+                ))}
           </div>
         </div>
       </div>

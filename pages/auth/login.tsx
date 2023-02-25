@@ -5,7 +5,5 @@ import React from 'react'
 const Login: NextPageAuth = () => {
     return <LoginPage />
 }
-
 Login.isOnlyUser = false
-
 export default Login

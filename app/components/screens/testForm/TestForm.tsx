@@ -25,9 +25,19 @@ const TestForm = () => {
   const refForm = useRef("");
   const pathId = router.query.id;
 
+
+  const {
+    data: response,
+    error,
+    isLoading,
+  } = useQuery("test right", () => TestsService.getByTestId(Number(pathId)));
   // const test = isLoading ? null : response?.data.replace(/\r/g, "").split("\n");
   const questionsLength = localStorage.getItem("questionsLength");
+  console.log('answer', isLoading ? [] : response?.data)
+  console.log("selected", selected)
 
+  let rightAnswer = isLoading ? [] : response?.data.filter(item => Object.values(selected).includes(item.variant))
+  console.log("right", rightAnswer.length)
   const prev = () => {
     const isFirstIndex = currentQuestion == 1;
     isFirstIndex
@@ -48,7 +58,7 @@ const TestForm = () => {
     }
     await apiAxios.post(
       "test-res",
-      { res: result, testId: pathId },
+      { res: rightAnswer.length, testId: pathId },
       {
         headers: {
           Authorization: `Bearer ${cookie.get("accessToken")}`,
