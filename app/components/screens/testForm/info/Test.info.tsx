@@ -1,9 +1,20 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styles from "../TestForm.module.scss";
 import Image from "next/image";
 import Stas from "../../../../assets/OdUHsYxnIEQ.jpg";
+import Timer from "../timer/Timer";
+import { useAppDispatch } from "@/app/hooks/hooks";
+import { useAppSelector } from "@/app/store/store";
+import cookie from "js-cookie";
 
-const Info = () => {
+const Info = ({ onSubmit }) => {
+  const len = localStorage.getItem("questionsLength");
+  const selected = JSON.parse(localStorage.getItem("selected"))
+    ? JSON.parse(localStorage.getItem("selected"))
+    : "";
+  const arr = Object.values(selected);
+  let picked = 0;
+  arr.forEach((item) => (item ? picked++ : 0));
   return (
     <div className={styles.TestForm__content__top}>
       <div className={styles.TestForm__content__top__left}>
@@ -19,27 +30,6 @@ const Info = () => {
             >
               <p>Родиченко Станислав Валерьевич</p>
             </div>
-            <div
-              className={
-                styles.TestForm__content__top__left__content__text__discipline
-              }
-            >
-              <p>Дисциплина: Матан</p>
-            </div>
-            <div
-              className={
-                styles.TestForm__content__top__left__content__text__time
-              }
-            >
-              <p>Время тестирования: 60 мин.</p>
-            </div>
-            <div
-              className={
-                styles.TestForm__content__top__left__content__text__form
-              }
-            >
-              <p>Вид контроля: экз</p>
-            </div>
           </div>
         </div>
       </div>
@@ -50,11 +40,13 @@ const Info = () => {
               <p>До завершения осталось</p>
             </div>
             <div className={styles.TestForm__content__top__right__time__value}>
-              00:57:32
+              <Timer onSubmit={onSubmit} />
             </div>
           </div>
           <div className={styles.TestForm__content__top__right__result}>
-            <p>Вы ответили на 3 из 30 вопросов</p>
+            <p>
+              Вы ответили на {picked} из {len} вопросов
+            </p>
           </div>
         </div>
       </div>
