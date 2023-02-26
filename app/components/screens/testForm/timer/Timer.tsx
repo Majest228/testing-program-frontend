@@ -7,7 +7,7 @@ import Countdown, {
 import cookie from "js-cookie";
 
 const Timer = ({ onSubmit }) => {
-  const min = 1;
+  const min = 5;
   const renderer = ({ hours, minutes, seconds, completed }: any) => {
     if (completed && +cookie.get("timer") === 0) {
       onSubmit();
@@ -27,9 +27,11 @@ const Timer = ({ onSubmit }) => {
     <Countdown
       date={
         +cookie.get("timer")
-          ? Date.now() + +cookie.get("timer")
+          ? Date.now() + +cookie.get("timer") - 25
           : Date.now() + min * 60 * 1000
       }
+      intervalDelay={50}
+      precision={1}
       renderer={renderer}
     />
   );

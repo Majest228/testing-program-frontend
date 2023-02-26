@@ -18,11 +18,15 @@ const HomePage = () => {
           {isLoading ? (
             <div>Loading</div>
           ) : (
-            response?.data.map((item) => (
-              <Link href={`/testing/${item.id}`}>
-                <h3>{item.name}</h3>
-              </Link>
-            ))
+            <div className={styles.home__content__links}>
+              {response?.data.map((item) => (
+                <Link href={`/testing/${item.id}`}>
+                  <div className={styles.home__content__links__link}>
+                    <h3>{item.name}</h3>
+                  </div>
+                </Link>
+              ))}
+            </div>
           )}
         </div>
       </div>
