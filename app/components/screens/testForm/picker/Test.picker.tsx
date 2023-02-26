@@ -13,13 +13,13 @@ const Picker = ({ isLoading, onSubmit }) => {
         <div className={styles.TestForm__content__bottom__left}>
           {!isLoading
             ? Object.keys(selected).map((test) => (
-                <button
-                  className={styles.TestForm__content__bottom__left__item}
-                  onClick={() => dispatch(setCurrentQuestion(+test))}
-                >
-                  <p>{test}</p>
-                </button>
-              ))
+              <button
+                className={styles.TestForm__content__bottom__left__item}
+                onClick={() => dispatch(setCurrentQuestion(+test))}
+              >
+                <p>{test}</p>
+              </button>
+            ))
             : ""}
         </div>
         <div className={styles.TestForm__content__bottom__right}>

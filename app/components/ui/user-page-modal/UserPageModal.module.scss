@@ -1,0 +1,107 @@
+.auth {
+    &__button {
+        cursor: pointer;
+        display: block;
+        margin: 30px auto 0;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 130%;
+        color: #4db82d;
+        background: #e3ffdb;
+        border-radius: 15px;
+        padding: 26px 88px 28px;
+        gap: 10px;
+        border: none;
+    }
+
+
+    &__wrapper {
+        position: relative;
+    }
+
+    &__modal {
+        height: 100vh;
+        width: 100vw;
+        background-color: rgba(0, 0, 0, 0.4);
+        position: fixed;
+        top: 0;
+        left: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: auto;
+        z-index: 99;
+    }
+
+    &__form {
+        position: absolute;
+        width: 538px;
+        height: 522px;
+        background: #ffffff;
+        padding-top: 50px;
+
+        h3 {
+
+            text-align: center;
+            font-size: 30px;
+
+        }
+
+        &__button {
+            cursor: pointer;
+            display: block;
+            margin: 30px auto 0;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 18px;
+            line-height: 130%;
+            color: #4db82d;
+            background: #e3ffdb;
+            border-radius: 15px;
+            padding: 26px 88px 28px;
+            gap: 10px;
+            border: none;
+
+        }
+
+        &__input {
+            border: 1px solid #d1d1d1;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            width: 438px;
+            height: 85px;
+            margin: 30px auto 0;
+
+            &__content {
+                display: flex;
+                flex-direction: column;
+                margin-top: 20px;
+                margin-bottom: 20px;
+                margin-left: 25px;
+            }
+
+            input {
+                border: none;
+                outline: none;
+
+                &::placeholder {
+                    font-style: normal;
+                    font-weight: 400;
+                    font-size: 18px;
+                    line-height: 130%;
+                    color: #878787;
+                }
+            }
+
+            label {
+                font-style: normal;
+                font-weight: 400;
+                font-size: 13px;
+                line-height: 130%;
+                color: #878787;
+            }
+        }
+    }
+}

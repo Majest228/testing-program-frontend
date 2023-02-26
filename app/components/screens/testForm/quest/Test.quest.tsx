@@ -109,41 +109,41 @@ const Quest = ({ id, prev, next }: any) => {
             {isLoading
               ? ""
               : response?.data
-                  .filter((item) => item.questionId === currentQuestion)
-                  .map((test, i) => (
-                    <div
-                      key={i}
-                      className={
-                        styles.TestForm__content__middle__content__questions__radios__button
-                      }
-                    >
-                      <label>
-                        <input
-                          id={String(test.questionId)}
-                          value={test.variant}
-                          type={"radio"}
-                          name={`answer${currentQuestion}`}
-                          checked={
-                            checked || selected[currentQuestion] == test.variant
-                          }
-                          onChange={(e) => {
-                            dispatch(
-                              setSelectedId({
-                                id: e.target.id,
-                                select: e.target.value,
-                              })
-                            );
-                          }}
-                        />
-                        <span
-                          className={
-                            styles.TestForm__content__middle__content__questions__radios__button__input
-                          }
-                        ></span>
-                        <p>{test.variant}</p>
-                      </label>
-                    </div>
-                  ))}
+                .filter((item) => item.questionId === currentQuestion)
+                .map((test, i) => (
+                  <div
+                    key={i}
+                    className={
+                      styles.TestForm__content__middle__content__questions__radios__button
+                    }
+                  >
+                    <label>
+                      <input
+                        id={String(test.questionId)}
+                        value={test.variant}
+                        type={"radio"}
+                        name={`answer${currentQuestion}`}
+                        checked={
+                          checked || selected[currentQuestion] == test.variant
+                        }
+                        onChange={(e) => {
+                          dispatch(
+                            setSelectedId({
+                              id: e.target.id,
+                              select: e.target.value,
+                            })
+                          );
+                        }}
+                      />
+                      <span
+                        className={
+                          styles.TestForm__content__middle__content__questions__radios__button__input
+                        }
+                      ></span>
+                      <p>{test.variant}</p>
+                    </label>
+                  </div>
+                ))}
           </div>
         </div>
       </div>

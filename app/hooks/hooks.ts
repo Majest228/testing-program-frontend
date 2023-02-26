@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useEffect } from "react";
 import { useDispatch } from "react-redux";
 
 import { AppDipsatch, useAppSelector } from "../store/store";
@@ -37,3 +37,20 @@ export const saveToStorage = (data: any) => {
 };
 
 export const useAuth = () => useAppSelector((state) => state.auth)
+
+export const useOnClickOutside = (ref: any, handler: any) => {
+  useEffect(() => {
+    const listener = (event: any) => {
+      if (!ref.current || ref.current.contains(event.target)) {
+        return
+      }
+      handler(event)
+    }
+    document.addEventListener("mousedown", listener)
+    document.addEventListener("touchstart", listener)
+    return () => {
+      document.removeEventListener("mousedown", listener)
+      document.removeEventListener("touchstart", listener)
+    }
+  }, [ref, handler])
+}

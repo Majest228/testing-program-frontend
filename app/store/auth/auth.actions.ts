@@ -17,3 +17,32 @@ export const login: any = createAsyncThunk<AuthInterface, IAuthForm>(
         }
     }
 )
+
+export const register: any = createAsyncThunk<AuthInterface, IAuthForm>(
+    "auth/register",
+    async ({ login, password }, thunkAPI) => {
+        try {
+            const response = await AuthService.register(login, password)
+            console.log("res true")
+            return response.data
+        } catch (e) {
+            console.log("res false")
+            return thunkAPI.rejectWithValue(e)
+
+        }
+    }
+)
+
+
+export const getProfile: any = createAsyncThunk<AuthInterface, IAuthForm>(
+    "user/getProfile",
+    async () => {
+        try {
+            const response = await AuthService.getProfile()
+            console.log("res true")
+            return response.data
+        } catch (e) {
+
+        }
+    }
+)

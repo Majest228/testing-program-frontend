@@ -8,10 +8,14 @@ const AdminPage = () => {
         <div className={styles.admin}>
             <div className={styles.admin__container}>
                 <h3>Админ панель</h3>
+                <ul className={styles.admin__content}>
+                    <li>
+                        <Link href="admin/users">Пользователи</Link>
+                    </li>
+                    <li>
+                        <Link href="admin/test">Тесты</Link>
+                    </li>
 
-                <ul>
-                    <Link href="admin/users">Пользователи</Link>
-                    <Link href="admin/test">Тесты</Link>
                 </ul>
             </div>
         </div>

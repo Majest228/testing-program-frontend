@@ -17,5 +17,12 @@ export const UserService = {
             },
         })
         return res
+    },
+    async deleteUser(id: number) {
+        return await apiAxios.delete(`user/${id}`, {
+            headers: {
+                Authorization: `Bearer ${cookie.get("accessToken")}`,
+            },
+        })
     }
 }

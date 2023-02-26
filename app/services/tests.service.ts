@@ -8,7 +8,7 @@ export const TestsService = {
     },
 
     async getById(id: number) {
-        return await apiAxios.get(`test/${id}`)
+        return await apiAxios.get(`test/testByid/${id}`)
     },
 
     async getByTestId(id: number) {
@@ -22,8 +22,8 @@ export const TestsService = {
     async getTitle(id: number) {
         return await apiAxios.get(`question/title/${id}`)
     },
-    async createTest(testLink: string) {
-        return await apiAxios.post("test", { testLink }, {
+    async createTest(data: any) {
+        return await apiAxios.post("test", data, {
             headers: {
                 Authorization: `Bearer ${cookie.get("accessToken")}`,
             },

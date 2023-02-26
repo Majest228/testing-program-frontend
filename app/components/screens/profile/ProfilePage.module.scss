@@ -1,0 +1,36 @@
+.profile {
+    &__container {
+        max-width: 1280px;
+        margin: 0 auto;
+    }
+
+    &__title {
+        margin-top: 40px;
+        font-size: 36px;
+        text-align: center;
+    }
+
+    &__span {
+        margin-top: 40px;
+        font-size: 24px;
+        text-align: center;
+    }
+
+    &__login {
+        margin-top: 40px;
+        font-size: 24px;
+    }
+
+    &__name {
+        display: flex;
+        flex-direction: row;
+    }
+
+    &__res {
+        display: flex;
+
+        &__name {
+            font-size: 24px;
+        }
+    }
+}

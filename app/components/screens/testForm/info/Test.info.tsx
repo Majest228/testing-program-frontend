@@ -6,6 +6,10 @@ import Timer from "../timer/Timer";
 import { useAppDispatch } from "@/app/hooks/hooks";
 import { useAppSelector } from "@/app/store/store";
 import cookie from "js-cookie";
+import { useQuery } from "react-query";
+import { useRouter } from "next/router";
+import { TestsService } from '../../../../services/tests.service'
+import { UserService } from "@/app/services/user.service";
 
 const Info = ({ onSubmit }) => {
   const len = localStorage.getItem("questionsLength");
@@ -15,20 +19,33 @@ const Info = ({ onSubmit }) => {
   const arr = Object.values(selected);
   let picked = 0;
   arr.forEach((item) => (item ? picked++ : 0));
+
+  const router = useRouter();
+  const pathId = router.query.id;
+
+  const {
+    data: user,
+    error,
+    refetch,
+    isLoadingUser,
+  } = useQuery("get profile", () => UserService.getProfile());
+
+  const { data: response, isLoading } = useQuery("getById", () =>
+    TestsService.getById(Number(pathId))
+  );
+  console.log("chetp", isLoading ? "" : response?.data)
   return (
     <div className={styles.TestForm__content__top}>
       <div className={styles.TestForm__content__top__left}>
         <div className={styles.TestForm__content__top__left__content}>
-          <div className={styles.TestForm__content__top__left__content__img}>
-            <Image src={Stas} width={200} height={200} alt="" />
-          </div>
           <div className={styles.TestForm__content__top__left__content__text}>
             <div
               className={
                 styles.TestForm__content__top__left__content__text__name
               }
             >
-              <p>Родиченко Станислав Валерьевич</p>
+              <p>{isLoadingUser ? "" : user?.data.login}</p>
+              <p>Название теста - {isLoading ? "" : response?.data.name}</p>
             </div>
           </div>
         </div>

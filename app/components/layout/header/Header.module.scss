@@ -22,11 +22,41 @@
         }
 
         &__right {
-            button {
+            position: relative;
+
+            &__profile {
                 background: none;
                 border: none;
                 color: #ffffff;
                 font-size: 24px;
+                cursor: pointer;
+
+                &__modal {
+                    position: absolute;
+                    width: 200px;
+                    background-color: #ffffff;
+                    border: 1px solid black;
+                    height: 120px;
+                    display: flex;
+                    flex-direction: column;
+
+                    a {
+                        margin-top: 10px;
+                        text-decoration: none;
+                        color: #000000;
+                        margin-left: 20px;
+
+                    }
+
+                    button {
+                        margin-top: 10px;
+                        cursor: pointer;
+                        background: none;
+                        border: none;
+                        width: 0;
+                        margin-left: 14px;
+                    }
+                }
             }
         }
     }

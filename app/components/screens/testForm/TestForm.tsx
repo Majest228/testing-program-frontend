@@ -82,7 +82,13 @@ const TestForm = () => {
           Authorization: `Bearer ${cookie.get("accessToken")}`,
         },
       }
-    );
+    ).then(res => {
+      router.push('/profile')
+      localStorage.removeItem("questionsLength")
+      localStorage.removeItem("selected")
+      localStorage.removeItem("persist:root")
+      localStorage.removeItem("question")
+    })
   };
 
   return (

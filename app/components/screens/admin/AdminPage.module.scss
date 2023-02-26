@@ -1,0 +1,72 @@
+.admin {
+    &__container {
+        max-width: 1280px;
+        margin: 0 auto;
+    }
+
+    &__content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        li {
+            margin-top: 20px;
+            padding: 0 20px;
+
+            a {
+                padding: 5px 20px;
+                font-size: 18px;
+                text-decoration: none;
+                color: #000000;
+                border-radius: 50px;
+                border: 1px solid rgb(150, 150, 150);
+            }
+        }
+    }
+
+    &__user {
+        &__create {
+            cursor: pointer;
+            margin-top: 20px;
+            border: none;
+            width: 200px;
+            height: 35px;
+            color: #ffffff;
+            border-radius: 30px;
+            background: #4dd100;
+        }
+
+        &__title {
+            margin-top: 40px;
+            font-size: 36px;
+            text-align: center;
+        }
+
+        &__content {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+
+            &__item {
+                display: flex;
+
+                &__login {
+                    font-size: 24px;
+                }
+
+                &__delete {
+                    background: none;
+                    border: none;
+                    cursor: pointer;
+                }
+
+            }
+        }
+    }
+
+    h3 {
+        margin-top: 40px;
+        font-size: 36px;
+        text-align: center;
+    }
+}

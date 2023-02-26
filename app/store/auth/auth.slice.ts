@@ -1,7 +1,7 @@
 import { getStoreLocal, removeTokensStorage } from "@/app/hooks/hooks";
 import { createSlice } from "@reduxjs/toolkit";
-import { login } from "./auth.actions";
-
+import { getProfile, login, register } from "./auth.actions";
+import cookie from 'js-cookie'
 const initialState = {
   user: getStoreLocal("user"),
   isLoading: true,
@@ -15,8 +15,10 @@ export const authSlice = createSlice({
     },
     logout: (state) => {
       state.user = null
-      removeTokensStorage()
       localStorage.removeItem('user')
+      localStorage.removeItem('persist:root')
+      cookie.remove('accessToken')
+      cookie.remove('refreshToken')
     }
   },
   extraReducers: (builder) => {
@@ -30,7 +32,16 @@ export const authSlice = createSlice({
       .addCase(login.rejected, (state) => {
         state.isLoading = false
         state.user = null
+      }).addCase(register.pending, (state) => {
+        state.isLoading = true
       })
+      .addCase(register.fulfilled, (state, { payload }) => {
+        state.isLoading = false
+      })
+      .addCase(register.rejected, (state) => {
+        state.isLoading = false
+      })
+
   },
 });
 
